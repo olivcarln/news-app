@@ -15,12 +15,10 @@ class NewsResponse {
     return NewsResponse(
       status: json['status'] ?? '',
       totalResults: json['totalResults'] ?? 0,
-      // kode yang digunakan untuk mengkonfersi data mentah 
-      // agar siap digunakan oleh aplikasi 
-      articles: (json['articles'] as List<dynamic>?)
-                 ?.map((article) => NewsArticles.fromJson(article))
+      articles: (json['articles'] as List<dynamic>)
+                ?.map((article) => NewsArticles.fromJson(article))
                 .toList() ??
-          [],
+                [],
     );
   }
 }
