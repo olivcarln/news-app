@@ -1,7 +1,10 @@
-// a brand new way for make a screen using get state management
+// A brand new way for make a screen using get state management
+
 import 'package:flutter/material.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:news_app/controllers/news_controller.dart';
+import 'package:news_app/routes/app_pages.dart';
 import 'package:news_app/utils/app_colors.dart';
 import 'package:news_app/widgets/category_chip.dart';
 import 'package:news_app/widgets/loading_shimmer.dart';
@@ -36,7 +39,7 @@ class HomeScreen extends GetView<NewsController>{
                 return Obx(() => CategoryChip( // obx itu observable
                   label: category.capitalize ?? category, // ?? -> default value
                   isSelected: controller.selectedCategory == category,
-                  onTap: () => controller.selectedCategory(category),
+                  onTap: () => controller.selectCategory(category),
                 ));
               },
             ),
@@ -57,20 +60,19 @@ class HomeScreen extends GetView<NewsController>{
             }
 
             return RefreshIndicator(
-              onRefresh: controller.refreshNews(),
+              onRefresh: controller.refreshNews,
               child: ListView.builder(
                 padding: EdgeInsets.all(16),
                 itemCount: controller.articles.length,
                 itemBuilder: (context, index) {
                   final article = controller.articles[index];
                   return NewsCard(
-                    article: article, 
+                    article: article,
                     onTap: () => Get.toNamed(
-                      // TODO: add route to detail screen
-
-                      // argument berfungsi untuk bernavigasi ke halaman lain untuk membawa data
-                      arguments: article
-                    )
+                      Routes.NEWS_DETAIL,
+                      // argument berfungsi untuk bernavigasi ke halaman lain dengan membawa data
+                      arguments: article,
+                    ),
                   );
                 },
               ),
@@ -95,16 +97,16 @@ class HomeScreen extends GetView<NewsController>{
           ),
           SizedBox(height: 16),
           Text(
-            'No news available',
+            'no news available',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
+              color: AppColors.textPrimary
             ),
           ),
           SizedBox(height: 8),
           Text(
-            'Please try again later',
+            'please try again later',
             style: TextStyle(
               color: AppColors.textSecondary,
             ),
