@@ -38,7 +38,7 @@ class Source {
   final String? id;
   final String? name;
 
-  Source({required this.id, required this.name});
+  Source({ this.id, this.name});
 
 // berfungsi untuk merapikan format data yang didapatkan dari server
 // yang awalnya berawal bertipe data .json menjadi data yang dimengerti oleh bahasa pemrograman yang digunakan
